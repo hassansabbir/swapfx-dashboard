@@ -51,22 +51,22 @@ const Sidebar = () => {
     },
     {
       name: "Swapper Management",
-      path: "/clients",
+      path: "/swappers-management",
       icon: <FiUser size={18} />,
     },
     {
       name: "Platform Fee",
-      path: "coming-soon:platform-fee",
+      path: "/platform-fee",
       icon: <FiPlusCircle size={18} />,
     },
     {
       name: "Membership",
-      path: "coming-soon:membership",
+      path: "/membership",
       icon: <FiCreditCard size={18} />,
     },
     {
       name: "Swap",
-      path: "coming-soon:swap",
+      path: "/swap",
       icon: <IoSwapHorizontalOutline size={18} />,
     },
     {
@@ -81,7 +81,7 @@ const Sidebar = () => {
     },
     {
       name: "Support & Dispute",
-      path: "/f-a-q",
+      path: "/support-dispute",
       icon: <FiShield size={18} />,
     },
     {
@@ -91,7 +91,7 @@ const Sidebar = () => {
     },
     {
       name: "Warning Message",
-      path: "coming-soon:warning-message",
+      path: "/warning-message",
       icon: <FiAlertTriangle size={18} />,
     },
     {
@@ -164,11 +164,10 @@ const Sidebar = () => {
               <button
                 key={item.name}
                 onClick={() => handleItemClick(item)}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-sans font-medium transition-all ${
-                  isActive
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-sans font-medium transition-all ${isActive
                     ? "bg-[#0DBCBA] text-white shadow-sm font-semibold animate-none"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                }`}
+                  }`}
               >
                 <div className={`transition-colors ${isActive ? "text-white" : "text-[#94A3B8]"}`}>
                   {item.icon}

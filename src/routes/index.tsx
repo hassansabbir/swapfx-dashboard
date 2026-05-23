@@ -11,13 +11,16 @@ import ResetPassword from "../Pages/Auth/ResetPassword";
 import NotFound from "../NotFound";
 import Notifications from "../Pages/Dashboard/Notifications";
 import User from "../Pages/Dashboard/User";
+import PlatformFee from "../Pages/Dashboard/PlatformFee";
+import Membership from "../Pages/Dashboard/Membership";
+import Swap from "../Pages/Dashboard/Swap";
+import WarningMessage from "../Pages/Dashboard/WarningMessage";
 import Vendors from "../Pages/Dashboard/Vendors";
-import Faq from "../Pages/Dashboard/Faq";
+import SupportDispute from "../Pages/Dashboard/SupportDispute";
 import Vendor from "../Pages/Dashboard/Vendor";
 import UserProfile from "@/components/ui/Settings/UserProfile";
 import AboutUs from "@/components/ui/Settings/AboutUs";
-import PrivacyPolicy from "@/components/ui/Settings/PrivacyPolicy";
-import TermsAndCondition from "@/components/ui/Settings/TermsAndCondition";
+import Legal from "../Pages/Dashboard/Legal";
 
 const router = createBrowserRouter([
   {
@@ -33,11 +36,27 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/clients",
+        path: "/swappers-management",
         element: <Users />,
       },
       {
-        path: "/client/profile/:id",
+        path: "/platform-fee",
+        element: <PlatformFee />,
+      },
+      {
+        path: "/membership",
+        element: <Membership />,
+      },
+      {
+        path: "/swap",
+        element: <Swap />,
+      },
+      {
+        path: "/warning-message",
+        element: <WarningMessage />,
+      },
+      {
+        path: "/swappers/profile/:id",
         element: <User />,
       },
       {
@@ -59,7 +78,11 @@ const router = createBrowserRouter([
 
       {
         path: "f-a-q",
-        element: <Faq />,
+        element: <SupportDispute />,
+      },
+      {
+        path: "support-dispute",
+        element: <SupportDispute />,
       },
       {
         path: "about-us",
@@ -67,11 +90,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/privacy-policy",
-        element: <PrivacyPolicy />,
+        element: <Legal />,
       },
       {
         path: "/terms-and-condition",
-        element: <TermsAndCondition />,
+        element: <Legal />,
       },
       {
         path: "/change-password",
