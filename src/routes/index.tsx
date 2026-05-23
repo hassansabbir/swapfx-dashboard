@@ -21,6 +21,9 @@ import Vendor from "../Pages/Dashboard/Vendor";
 import UserProfile from "@/components/ui/Settings/UserProfile";
 import AboutUs from "@/components/ui/Settings/AboutUs";
 import Legal from "../Pages/Dashboard/Legal";
+import Refund from "../Pages/Dashboard/Refund";
+import Messages from "../Pages/Dashboard/Messages";
+import ReputationTrust from "../Pages/Dashboard/ReputationTrust";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +53,18 @@ const router = createBrowserRouter([
       {
         path: "/swap",
         element: <Swap />,
+      },
+      {
+        path: "/refund",
+        element: <Refund />,
+      },
+      {
+        path: "/messages",
+        element: <Messages />,
+      },
+      {
+        path: "/reputation-trust",
+        element: <ReputationTrust />,
       },
       {
         path: "/warning-message",

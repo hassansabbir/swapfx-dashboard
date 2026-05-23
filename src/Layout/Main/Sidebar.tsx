@@ -71,7 +71,7 @@ const Sidebar = () => {
     },
     {
       name: "Refund",
-      path: "coming-soon:refund",
+      path: "/refund",
       icon: <FiRotateCcw size={18} />,
     },
     {
@@ -86,7 +86,7 @@ const Sidebar = () => {
     },
     {
       name: "Messages",
-      path: "coming-soon:messages",
+      path: "/messages",
       icon: <FiMessageSquare size={18} />,
     },
     {
@@ -106,7 +106,7 @@ const Sidebar = () => {
     },
     {
       name: "Reputation & Trust",
-      path: "coming-soon:reputation-trust",
+      path: "/reputation-trust",
       icon: <FiShield size={18} />,
     },
     {
