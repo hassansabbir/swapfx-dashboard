@@ -111,12 +111,12 @@ const Sidebar = () => {
     },
     {
       name: "Protocol Controls",
-      path: "coming-soon:protocol-controls",
+      path: "/protocol-controls",
       icon: <FiGlobe size={18} />,
     },
     {
       name: "Security & Fraud Controls",
-      path: "coming-soon:security-fraud",
+      path: "/security-fraud",
       icon: <FiLock size={18} />,
     },
     {
@@ -126,7 +126,7 @@ const Sidebar = () => {
     },
     {
       name: "Chat Logs",
-      path: "coming-soon:chat-logs",
+      path: "/chat-logs",
       icon: <FiMessageCircle size={18} />,
     },
   ];

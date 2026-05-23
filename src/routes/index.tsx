@@ -24,6 +24,9 @@ import Legal from "../Pages/Dashboard/Legal";
 import Refund from "../Pages/Dashboard/Refund";
 import Messages from "../Pages/Dashboard/Messages";
 import ReputationTrust from "../Pages/Dashboard/ReputationTrust";
+import ProtocolControls from "../Pages/Dashboard/ProtocolControls";
+import SecurityFraud from "../Pages/Dashboard/SecurityFraud";
+import ChatLogs from "../Pages/Dashboard/ChatLogs";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +68,18 @@ const router = createBrowserRouter([
       {
         path: "/reputation-trust",
         element: <ReputationTrust />,
+      },
+      {
+        path: "/protocol-controls",
+        element: <ProtocolControls />,
+      },
+      {
+        path: "/security-fraud",
+        element: <SecurityFraud />,
+      },
+      {
+        path: "/chat-logs",
+        element: <ChatLogs />,
       },
       {
         path: "/warning-message",
