@@ -7,27 +7,10 @@ import {
   FiLock,
   FiUnlock,
 } from "react-icons/fi";
-import { HiOutlineChevronDown } from "react-icons/hi";
 import { toast } from "react-hot-toast";
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
-const UnlockedIcon: React.FC = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="text-gray-500"
-  >
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-    <path d="M7 11V7a5 5 0 019.9-1" />
-  </svg>
-);
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -57,14 +40,7 @@ const SecurityFraud: React.FC = () => {
     setCurrentPage(1);
   }, [searchQuery]);
 
-  // Close dropdowns on outside click
-  useEffect(() => {
-    const handleClickOutside = () => {
-      setIsStatusDropdownOpen(false);
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+
 
   // ── Filtered list ───────────────────────────────────────────────────
 
@@ -122,11 +98,10 @@ const SecurityFraud: React.FC = () => {
       <button
         key={n}
         onClick={() => setCurrentPage(n)}
-        className={`w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-semibold transition-all ${
-          currentPage === n
-            ? "bg-[#0DBCBA] text-white shadow-sm"
-            : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
-        }`}
+        className={`w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-semibold transition-all ${currentPage === n
+          ? "bg-[#0DBCBA] text-white shadow-sm"
+          : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
+          }`}
       >
         {n}
       </button>
@@ -237,11 +212,10 @@ const SecurityFraud: React.FC = () => {
                       <td className="px-6 py-4 text-right">
                         <button
                           onClick={() => handleToggleLockClick(item)}
-                          className={`p-2 rounded-lg transition-all focus:outline-none inline-flex items-center justify-center ${
-                            item.status === "Locked" 
-                              ? "bg-red-50 text-red-500 hover:bg-red-100" 
-                              : "bg-teal-50 text-teal-600 hover:bg-teal-100"
-                          }`}
+                          className={`p-2 rounded-lg transition-all focus:outline-none inline-flex items-center justify-center ${item.status === "Locked"
+                            ? "bg-red-50 text-red-500 hover:bg-red-100"
+                            : "bg-teal-50 text-teal-600 hover:bg-teal-100"
+                            }`}
                           title={item.status === "Locked" ? "Unlock IP" : "Lock IP"}
                         >
                           {item.status === "Locked" ? <FiLock size={18} /> : <FiUnlock size={18} />}
