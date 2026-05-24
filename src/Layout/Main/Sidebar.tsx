@@ -121,7 +121,7 @@ const Sidebar = () => {
     },
     {
       name: "Monitoring & Audit Controls",
-      path: "coming-soon:monitoring-audit",
+      path: "/monitoring-audit",
       icon: <FiMonitor size={18} />,
     },
     {

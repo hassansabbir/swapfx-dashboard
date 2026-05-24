@@ -27,6 +27,7 @@ import ReputationTrust from "../Pages/Dashboard/ReputationTrust";
 import ProtocolControls from "../Pages/Dashboard/ProtocolControls";
 import SecurityFraud from "../Pages/Dashboard/SecurityFraud";
 import ChatLogs from "../Pages/Dashboard/ChatLogs";
+import MonitoringAudit from "../Pages/Dashboard/MonitoringAudit";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: "/chat-logs",
         element: <ChatLogs />,
+      },
+      {
+        path: "/monitoring-audit",
+        element: <MonitoringAudit />,
       },
       {
         path: "/warning-message",
