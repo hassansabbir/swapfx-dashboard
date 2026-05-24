@@ -4,6 +4,8 @@ import {
   FiArrowLeft,
   FiArrowRight,
   FiX,
+  FiLock,
+  FiUnlock,
 } from "react-icons/fi";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { toast } from "react-hot-toast";
@@ -29,27 +31,23 @@ const UnlockedIcon: React.FC = () => (
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
-const mockIps = Array.from({ length: 45 }, (_, i) => ({
+const mockData = Array.from({ length: 45 }, (_, i) => ({
   id: String(i + 1),
-  ip: "192.168.1.100",
-  status: "Enabled",
+  name: `User ${i + 1}`,
+  email: `user${i + 1}@example.com`,
+  ip: `192.168.1.${100 + i}`,
+  status: i % 5 === 0 ? "Locked" : "Unlocked",
 }));
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const SecurityFraud: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [ips, setIps] = useState(mockIps);
+  const [ips, setIps] = useState(mockData);
 
   // Modal states
-  const [actionModalOpen, setActionModalOpen] = useState(false);
-  const [selectedIp, setSelectedIp] = useState<{ id: string; ip: string; status: string } | null>(null);
-  
-  // Dropdown state in Action modal
-  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
-  const [modalStatus, setModalStatus] = useState("Enabled");
-
-  const [confirmDisableModalOpen, setConfirmDisableModalOpen] = useState(false);
+  const [confirmLockModalOpen, setConfirmLockModalOpen] = useState(false);
+  const [selectedIp, setSelectedIp] = useState<{ id: string; name: string; email: string; ip: string; status: string } | null>(null);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -72,7 +70,10 @@ const SecurityFraud: React.FC = () => {
 
   const filteredIps = ips.filter(
     (item) =>
-      searchQuery === "" || item.ip.toLowerCase().includes(searchQuery.toLowerCase())
+      searchQuery === "" ||
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.ip.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredIps.length / pageSize);
@@ -85,36 +86,32 @@ const SecurityFraud: React.FC = () => {
 
   // ── Actions ─────────────────────────────────────────────────────────
 
-  const handleOpenActionModal = (item: { id: string; ip: string; status: string }) => {
-    setSelectedIp(item);
-    setModalStatus(item.status);
-    setActionModalOpen(true);
-  };
-
-  const handleActionConfirm = () => {
-    if (modalStatus === "Disabled") {
-      setActionModalOpen(false);
-      setConfirmDisableModalOpen(true);
+  const handleToggleLockClick = (item: { id: string; name: string; email: string; ip: string; status: string }) => {
+    if (item.status === "Unlocked") {
+      // Prompt to lock
+      setSelectedIp(item);
+      setConfirmLockModalOpen(true);
     } else {
-      // Just update if it's Enabled
-      if (selectedIp) {
-        setIps((prev) =>
-          prev.map((i) => (i.id === selectedIp.id ? { ...i, status: modalStatus } : i))
-        );
-        toast.success("IP status updated successfully!");
-      }
-      setActionModalOpen(false);
+      // If already locked, unlock it directly or could also have a confirmation
+      setIps((prev) =>
+        prev.map((i) => (i.id === item.id ? { ...i, status: "Unlocked" } : i))
+      );
+      toast.success("IP Address unlocked successfully!");
     }
   };
 
-  const handleDisableConfirm = () => {
+  const handleLockConfirmYes = () => {
     if (selectedIp) {
       setIps((prev) =>
-        prev.map((i) => (i.id === selectedIp.id ? { ...i, status: "Disabled" } : i))
+        prev.map((i) => (i.id === selectedIp.id ? { ...i, status: "Locked" } : i))
       );
-      toast.success("IP Address disabled successfully!");
+      toast.success("IP Address locked successfully!");
     }
-    setConfirmDisableModalOpen(false);
+    setConfirmLockModalOpen(false);
+  };
+
+  const handleLockConfirmNo = () => {
+    setConfirmLockModalOpen(false);
   };
 
   // ── Pagination Render ───────────────────────────────────────────────
@@ -198,11 +195,17 @@ const SecurityFraud: React.FC = () => {
             <table className="w-full border-collapse text-left">
               <thead>
                 <tr className="bg-[#CFF2F1]">
-                  <th className="px-6 py-4 text-[13px] font-bold text-gray-900">
+                  <th className="px-6 py-4 text-[13px] font-bold text-gray-900 w-1/4">
+                    USER NAME
+                  </th>
+                  <th className="px-6 py-4 text-[13px] font-bold text-gray-900 w-1/4">
+                    EMAIL
+                  </th>
+                  <th className="px-6 py-4 text-[13px] font-bold text-gray-900 w-1/4">
                     IP ADDRESS
                   </th>
-                  <th className="px-6 py-4 text-[13px] font-bold text-gray-900 text-right">
-                    Action
+                  <th className="px-6 py-4 text-[13px] font-bold text-gray-900 text-right w-1/4">
+                    ACTION
                   </th>
                 </tr>
               </thead>
@@ -210,10 +213,10 @@ const SecurityFraud: React.FC = () => {
                 {paginatedIps.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={2}
+                      colSpan={4}
                       className="py-16 text-center text-gray-400 text-sm"
                     >
-                      No IP addresses found.
+                      No users found.
                     </td>
                   </tr>
                 ) : (
@@ -223,14 +226,25 @@ const SecurityFraud: React.FC = () => {
                       className="border-t border-gray-100 hover:bg-[#fafbfc] transition-colors"
                     >
                       <td className="px-6 py-4 text-[14px] text-gray-700 font-medium">
+                        {item.name}
+                      </td>
+                      <td className="px-6 py-4 text-[14px] text-gray-500">
+                        {item.email}
+                      </td>
+                      <td className="px-6 py-4 text-[14px] text-gray-700 font-medium">
                         {item.ip}
                       </td>
                       <td className="px-6 py-4 text-right">
                         <button
-                          onClick={() => handleOpenActionModal(item)}
-                          className="p-1.5 rounded-lg hover:bg-gray-100 transition-all focus:outline-none inline-flex"
+                          onClick={() => handleToggleLockClick(item)}
+                          className={`p-2 rounded-lg transition-all focus:outline-none inline-flex items-center justify-center ${
+                            item.status === "Locked" 
+                              ? "bg-red-50 text-red-500 hover:bg-red-100" 
+                              : "bg-teal-50 text-teal-600 hover:bg-teal-100"
+                          }`}
+                          title={item.status === "Locked" ? "Unlock IP" : "Lock IP"}
                         >
-                          <UnlockedIcon />
+                          {item.status === "Locked" ? <FiLock size={18} /> : <FiUnlock size={18} />}
                         </button>
                       </td>
                     </tr>
@@ -263,124 +277,43 @@ const SecurityFraud: React.FC = () => {
         )}
       </div>
 
-      {/* ── Action Modal ────────────────────────────────────────── */}
-      {actionModalOpen && selectedIp && (
-        <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/20 backdrop-blur-[1px] p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-[600px] relative flex flex-col animate-scaleUp overflow-hidden">
-            {/* Header */}
-            <div className="flex items-center justify-between px-8 py-6 border-b border-gray-100">
-              <h3 className="text-gray-900 font-bold text-[18px]">Action</h3>
-              <button
-                onClick={() => setActionModalOpen(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors focus:outline-none"
-              >
-                <FiX size={20} />
-              </button>
-            </div>
-
-            {/* Body */}
-            <div className="px-8 py-8 flex flex-col gap-2">
-              <label className="text-[12px] text-gray-800 font-medium uppercase">
-                IP ADDRESS
-              </label>
-              <div className="flex items-center gap-4">
-                <input
-                  type="text"
-                  value={selectedIp.ip}
-                  readOnly
-                  className="flex-1 px-4 py-3 border border-gray-200 rounded-lg text-sm text-gray-800 bg-white focus:outline-none shadow-sm"
-                />
-                
-                {/* Custom Status Dropdown */}
-                <div
-                  className="relative min-w-[140px]"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button
-                    onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
-                    className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-500 rounded-lg text-sm text-[#1b3d5b] font-medium transition-all focus:outline-none"
-                  >
-                    <span>{modalStatus}</span>
-                    <HiOutlineChevronDown
-                      size={18}
-                      className={`transition-transform duration-200 ${
-                        isStatusDropdownOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  {isStatusDropdownOpen && (
-                    <div className="absolute left-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50">
-                      {["Enabled", "Disabled"].map((s) => (
-                        <button
-                          key={s}
-                          onClick={() => {
-                            setModalStatus(s);
-                            setIsStatusDropdownOpen(false);
-                          }}
-                          className={`w-full text-left px-4 py-2 text-sm transition-all ${
-                            modalStatus === s
-                              ? "bg-[#0DBCBA] text-white"
-                              : "text-gray-700 hover:bg-gray-50"
-                          }`}
-                        >
-                          {s}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="px-8 pb-8 flex items-center justify-center mt-4">
-              <button
-                onClick={handleActionConfirm}
-                className="w-full max-w-[280px] py-3.5 bg-[#0DBCBA] hover:bg-[#0aa6a4] text-white rounded-lg text-[15px] font-bold transition-all focus:outline-none shadow-sm shadow-[#0dbcba]/20"
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── Disable Confirmation Modal ──────────────────────────── */}
-      {confirmDisableModalOpen && (
+      {/* ── Lock Confirmation Modal ──────────────────────────── */}
+      {confirmLockModalOpen && selectedIp && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/20 backdrop-blur-[1px] p-4">
           <div className="bg-white rounded-3xl shadow-2xl p-10 max-w-[460px] w-full relative flex flex-col items-center text-center animate-scaleUp">
             {/* Close */}
             <button
-              onClick={() => setConfirmDisableModalOpen(false)}
+              onClick={handleLockConfirmNo}
               className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#8A8A8A] hover:bg-gray-600 text-white flex items-center justify-center transition-all focus:outline-none shadow-sm"
             >
               <FiX size={16} />
             </button>
 
             {/* Warning Icon */}
-            <div className="w-20 h-20 rounded-2xl bg-[#FDE8E8] flex items-center justify-center mb-6 mt-2 shadow-sm">
-              <svg
-                className="w-11 h-11 text-[#E74C3C]"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M12 2L1 21h22L12 2zm1 16h-2v-2h2v2zm0-4h-2V9h2v5z" />
-              </svg>
+            <div className="w-16 h-16 rounded-full bg-[#FDE8E8] flex items-center justify-center mb-6 mt-2 shadow-sm">
+              <FiLock className="w-8 h-8 text-[#E74C3C]" />
             </div>
 
             {/* Text */}
             <h4 className="text-gray-800 font-bold text-[19px] mb-8 px-4 leading-snug">
-              Are you sure you want to disable this IP ADDRESS ?
+              Do you really want to lock this IP?
             </h4>
 
-            {/* Confirm Button */}
-            <button
-              onClick={handleDisableConfirm}
-              className="w-full max-w-[300px] py-3 bg-[#0DBCBA] hover:bg-[#0aa6a4] text-white rounded-md text-[15px] font-bold transition-all focus:outline-none shadow-sm shadow-[#0dbcba]/20"
-            >
-              Confirm
-            </button>
+            {/* Action Buttons */}
+            <div className="flex items-center gap-4 w-full">
+              <button
+                onClick={handleLockConfirmYes}
+                className="flex-1 py-3 bg-[#0DBCBA] hover:bg-[#0aa6a4] text-white rounded-xl text-[15px] font-bold transition-all focus:outline-none shadow-sm shadow-[#0dbcba]/20"
+              >
+                Yes
+              </button>
+              <button
+                onClick={handleLockConfirmNo}
+                className="flex-1 py-3 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl text-[15px] font-bold transition-all focus:outline-none shadow-sm"
+              >
+                No
+              </button>
+            </div>
           </div>
         </div>
       )}

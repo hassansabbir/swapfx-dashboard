@@ -142,29 +142,30 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="h-full flex flex-col justify-between py-6 px-4 bg-white select-none">
+    <div className="h-full flex flex-col justify-between py-4 px-4 bg-white select-none">
       <div>
         {/* Logo Section */}
-        <div className="mb-6 flex items-center justify-center">
+        <div className="mb-3 flex items-center justify-center">
           <Link to="/" className="py-2">
             <img src={logo} alt="SwapFX Logo" className="h-16 w-auto object-contain" />
           </Link>
         </div>
 
         {/* Menu Items List */}
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {menuItems.map((item) => {
             // Check active state
             const isActive =
               item.path === "/"
                 ? path === "/"
-                : !item.path.startsWith("coming-soon") && path.startsWith(item.path);
+                : !item.path.startsWith("coming-soon") && 
+                  (path === item.path || path.startsWith(item.path + "/"));
 
             return (
               <button
                 key={item.name}
                 onClick={() => handleItemClick(item)}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-sans font-medium transition-all ${isActive
+                className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-sans font-medium transition-all ${isActive
                     ? "bg-[#0DBCBA] text-white shadow-sm font-semibold animate-none"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
@@ -180,7 +181,7 @@ const Sidebar = () => {
       </div>
 
       {/* Logout Button */}
-      <div className="mt-8 border-t border-slate-100 pt-4">
+      <div className="mt-4 border-t border-slate-100 pt-3">
         <button
           onClick={handleLogout}
           className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-sans font-medium text-red-500 hover:bg-red-50 hover:text-red-600 transition-all active:scale-95"

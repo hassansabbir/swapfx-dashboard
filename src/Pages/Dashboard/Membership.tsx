@@ -225,7 +225,7 @@ const Membership: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCountryFilter, setSelectedCountryFilter] = useState("All");
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
-  
+
   const [selectedStatusFilter, setSelectedStatusFilter] = useState("All");
   const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
 
@@ -471,11 +471,10 @@ const Membership: React.FC = () => {
       <button
         key={pageNumber}
         onClick={() => setCurrentPage(pageNumber)}
-        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all ${
-          currentPage === pageNumber
-            ? "bg-[#0DBCBA] text-white shadow-sm"
-            : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
-        }`}
+        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all ${currentPage === pageNumber
+          ? "bg-[#0DBCBA] text-white shadow-sm"
+          : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
+          }`}
       >
         {pageNumber}
       </button>
@@ -540,17 +539,16 @@ const Membership: React.FC = () => {
                 tab === "plans"
                   ? "Membership Plans"
                   : tab === "silver_members"
-                  ? "Silver Members"
-                  : "Gold Members";
+                    ? "Silver Members"
+                    : "Gold Members";
               const isActive = activeTab === tab;
 
               return (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab as any)}
-                  className={`pb-2 text-[14px] font-semibold transition-all relative ${
-                    isActive ? "text-[#1A1C1E]" : "text-gray-400 hover:text-gray-600"
-                  }`}
+                  className={`pb-2 text-[14px] font-semibold transition-all relative ${isActive ? "text-[#1A1C1E]" : "text-gray-400 hover:text-gray-600"
+                    }`}
                 >
                   {tabTitle}
                   {isActive && (
@@ -599,9 +597,8 @@ const Membership: React.FC = () => {
                         setSelectedCountryFilter(country);
                         setIsCountryDropdownOpen(false);
                       }}
-                      className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-left transition-all ${
-                        selectedCountryFilter === country ? "bg-[#0DBCBA] text-white" : "text-gray-700 hover:bg-gray-50"
-                      }`}
+                      className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-left transition-all ${selectedCountryFilter === country ? "bg-[#0DBCBA] text-white" : "text-gray-700 hover:bg-gray-50"
+                        }`}
                     >
                       {country}
                     </button>
@@ -632,11 +629,10 @@ const Membership: React.FC = () => {
                           setSelectedStatusFilter(status);
                           setIsStatusDropdownOpen(false);
                         }}
-                        className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-center transition-all ${
-                          selectedStatusFilter === status
-                            ? "bg-[#0DBCBA] text-white font-bold shadow-sm"
-                            : "bg-gray-100 text-gray-700 hover:bg-[#0DBCBA] hover:text-white"
-                        }`}
+                        className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-center transition-all ${selectedStatusFilter === status
+                          ? "bg-[#0DBCBA] text-white font-bold shadow-sm"
+                          : "bg-gray-100 text-gray-700 hover:bg-[#0DBCBA] hover:text-white"
+                          }`}
                       >
                         {status}
                       </button>
@@ -696,13 +692,12 @@ const Membership: React.FC = () => {
               <div className="flex gap-3 w-full mt-auto">
                 <button
                   onClick={() => handleTogglePlanActive("gold")}
-                  className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all focus:outline-none ${
-                    goldPlanConfig.isActive
-                      ? "bg-[#EF4444] text-white hover:bg-red-600"
-                      : "bg-[#0DBCBA] text-white hover:bg-[#0aa6a4]"
-                  }`}
+                  className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all focus:outline-none ${goldPlanConfig.isActive
+                    ? "bg-[#EF4444] text-white hover:bg-red-600"
+                    : "bg-[#0DBCBA] text-white hover:bg-[#0aa6a4]"
+                    }`}
                 >
-                  {goldPlanConfig.isActive ? "Deactive" : "Active"}
+                  {goldPlanConfig.isActive ? "Deactivate" : "Active"}
                 </button>
                 <button
                   onClick={() => handleOpenEditModal("gold")}
@@ -756,13 +751,12 @@ const Membership: React.FC = () => {
               <div className="flex gap-3 w-full mt-auto">
                 <button
                   onClick={() => handleTogglePlanActive("silver")}
-                  className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all focus:outline-none ${
-                    silverPlanConfig.isActive
-                      ? "bg-[#EF4444] text-white hover:bg-red-600"
-                      : "bg-[#0DBCBA] text-white hover:bg-[#0aa6a4]"
-                  }`}
+                  className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all focus:outline-none ${silverPlanConfig.isActive
+                    ? "bg-[#EF4444] text-white hover:bg-red-600"
+                    : "bg-[#0DBCBA] text-white hover:bg-[#0aa6a4]"
+                    }`}
                 >
-                  {silverPlanConfig.isActive ? "Deactive" : "Active"}
+                  {silverPlanConfig.isActive ? "Deactivate" : "Active"}
                 </button>
                 <button
                   onClick={() => handleOpenEditModal("silver")}

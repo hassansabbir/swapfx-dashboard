@@ -339,8 +339,6 @@ const ProtocolControls: React.FC = () => {
                     className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 font-medium hover:border-[#0DBCBA] transition-all focus:outline-none shadow-sm min-w-[130px]"
                   >
                     <span>
-                      {allCountries.find((c) => c.name === selectedCountry)
-                        ?.flag || ""}{" "}
                       {selectedCountry}
                     </span>
                     <HiOutlineChevronDown
@@ -365,7 +363,7 @@ const ProtocolControls: React.FC = () => {
                               : "text-gray-600 hover:bg-gray-50"
                           }`}
                         >
-                          {c.flag} {c.name}
+                          {c.name}
                         </button>
                       ))}
                     </div>

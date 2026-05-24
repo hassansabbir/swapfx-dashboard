@@ -21,7 +21,7 @@ interface UserData {
   phone: string;
   country: string;
   swap: number;
-  status: "Active" | "Ban" | "Suspend" | "Hide";
+  status: "Active" | "Blocked" | "Suspend" | "Hide";
 }
 
 const generateDummyData = (): UserData[] => {
@@ -44,7 +44,7 @@ const generateDummyData = (): UserData[] => {
       phone: "+8880133327633",
       country: "Bangladesh",
       swap: 36,
-      status: "Ban",
+      status: "Blocked",
     },
     {
       key: "3",
@@ -119,9 +119,9 @@ const generateDummyData = (): UserData[] => {
   ];
 
   const countries = ["Bangladesh", "Pakistan", "United States", "China", "Canada"];
-  const statuses: ("Active" | "Ban" | "Suspend" | "Hide")[] = [
+  const statuses: ("Active" | "Blocked" | "Suspend" | "Hide")[] = [
     "Active",
-    "Ban",
+    "Blocked",
     "Suspend",
     "Hide",
   ];
@@ -166,7 +166,7 @@ const Users: React.FC = () => {
   const [confirmModal, setConfirmModal] = useState<{
     isOpen: boolean;
     targetKey: string | null;
-    targetStatus: "Active" | "Ban" | "Suspend" | null;
+    targetStatus: "Active" | "Blocked" | "Suspend" | null;
   }>({
     isOpen: false,
     targetKey: null,
@@ -214,7 +214,7 @@ const Users: React.FC = () => {
 
   const handleUpdateStatus = (
     key: string,
-    status: "Active" | "Ban" | "Suspend" | "Hide"
+    status: "Active" | "Blocked" | "Suspend" | "Hide"
   ) => {
     setUsers((prevUsers) =>
       prevUsers.map((user) => (user.key === key ? { ...user, status } : user))
@@ -279,7 +279,7 @@ const Users: React.FC = () => {
       render: (status: string) => {
         let bgClass = "";
         if (status === "Active") bgClass = "bg-[#0DBCBA]";
-        else if (status === "Ban") bgClass = "bg-[#EF4444]";
+        else if (status === "Blocked") bgClass = "bg-[#EF4444]";
         else if (status === "Suspend") bgClass = "bg-[#F97316]";
         else if (status === "Hide") bgClass = "bg-[#4B5563]";
 
@@ -323,7 +323,7 @@ const Users: React.FC = () => {
                   <FiUser size={14} className="text-gray-400" />
                   View Profile
                 </button>
-                <button
+                {/* <button
                   onClick={() => {
                     handleUpdateStatus(record.key, "Hide");
                     setActiveDropdownRowKey(null);
@@ -331,7 +331,7 @@ const Users: React.FC = () => {
                   className="w-full text-left py-2.5 px-4 hover:bg-gray-50 text-gray-600 rounded-lg transition-all"
                 >
                   Hide Swapper
-                </button>
+                </button> */}
                 <button
                   onClick={() => {
                     setConfirmModal({
@@ -363,13 +363,13 @@ const Users: React.FC = () => {
                     setConfirmModal({
                       isOpen: true,
                       targetKey: record.key,
-                      targetStatus: "Ban",
+                      targetStatus: "Blocked",
                     });
                     setActiveDropdownRowKey(null);
                   }}
                   className="w-full text-left py-2.5 px-4 hover:bg-gray-50 text-red-500 font-semibold rounded-lg transition-all"
                 >
-                  Ban Swapper
+                  Block Swapper
                 </button>
               </div>
             )}
@@ -393,8 +393,8 @@ const Users: React.FC = () => {
         key={pageNumber}
         onClick={() => setCurrentPage(pageNumber)}
         className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all ${currentPage === pageNumber
-            ? "bg-[#0DBCBA] text-white shadow-sm"
-            : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
+          ? "bg-[#0DBCBA] text-white shadow-sm"
+          : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
           }`}
       >
         {pageNumber}
@@ -512,8 +512,8 @@ const Users: React.FC = () => {
                             setIsCountryDropdownOpen(false);
                           }}
                           className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-left transition-all ${isSelected
-                              ? "bg-[#0DBCBA] text-white"
-                              : "text-gray-700 hover:bg-gray-50"
+                            ? "bg-[#0DBCBA] text-white"
+                            : "text-gray-700 hover:bg-gray-50"
                             }`}
                         >
                           {country}
@@ -545,7 +545,7 @@ const Users: React.FC = () => {
 
               {isStatusDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-xl p-1.5 z-50 flex flex-col gap-0.5">
-                  {["All", "Ban", "Active", "Suspend", "Hide"].map((status) => {
+                  {["All", "Blocked", "Active", "Suspend", "Hide"].map((status) => {
                     const isSelected = selectedStatusFilter === status;
                     return (
                       <button
@@ -555,8 +555,8 @@ const Users: React.FC = () => {
                           setIsStatusDropdownOpen(false);
                         }}
                         className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-center transition-all ${isSelected
-                            ? "bg-[#0DBCBA] text-white font-bold shadow-sm"
-                            : "bg-gray-100 text-gray-700 hover:bg-[#0DBCBA] hover:text-white"
+                          ? "bg-[#0DBCBA] text-white font-bold shadow-sm"
+                          : "bg-gray-100 text-gray-700 hover:bg-[#0DBCBA] hover:text-white"
                           }`}
                       >
                         {status}

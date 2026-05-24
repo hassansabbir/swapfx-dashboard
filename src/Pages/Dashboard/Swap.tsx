@@ -453,7 +453,7 @@ const Swap: React.FC = () => {
       ),
     },
     {
-      title: "Transection",
+      title: "Transaction",
       key: "transection",
       render: (_, record: SwapTransaction) => (
         <div className="flex items-center gap-3 text-xs">
@@ -586,11 +586,10 @@ const Swap: React.FC = () => {
       <button
         key={pageNumber}
         onClick={() => setCurrentPage(pageNumber)}
-        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all ${
-          currentPage === pageNumber
+        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all ${currentPage === pageNumber
             ? "bg-[#0DBCBA] text-white shadow-sm"
             : "bg-white border border-gray-200 text-gray-500 hover:bg-gray-50"
-        }`}
+          }`}
       >
         {pageNumber}
       </button>
@@ -652,9 +651,8 @@ const Swap: React.FC = () => {
           <div className="flex gap-6 items-center">
             <button
               onClick={() => setActiveTab("market")}
-              className={`pb-2 text-[14px] font-semibold transition-all relative ${
-                activeTab === "market" ? "text-[#1A1C1E]" : "text-gray-400 hover:text-gray-600"
-              }`}
+              className={`pb-2 text-[14px] font-semibold transition-all relative ${activeTab === "market" ? "text-[#1A1C1E]" : "text-gray-400 hover:text-gray-600"
+                }`}
             >
               Market Swaps
               {activeTab === "market" && (
@@ -663,9 +661,8 @@ const Swap: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab("peer")}
-              className={`pb-2 text-[14px] font-semibold transition-all relative ${
-                activeTab === "peer" ? "text-[#1A1C1E]" : "text-gray-400 hover:text-gray-600"
-              }`}
+              className={`pb-2 text-[14px] font-semibold transition-all relative ${activeTab === "peer" ? "text-[#1A1C1E]" : "text-gray-400 hover:text-gray-600"
+                }`}
             >
               Peer Swaps
               {activeTab === "peer" && (
@@ -710,9 +707,8 @@ const Swap: React.FC = () => {
                         setSelectedCountryFilter(country);
                         setIsCountryDropdownOpen(false);
                       }}
-                      className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-left transition-all ${
-                        selectedCountryFilter === country ? "bg-[#0DBCBA] text-white" : "text-gray-700 hover:bg-gray-50"
-                      }`}
+                      className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-left transition-all ${selectedCountryFilter === country ? "bg-[#0DBCBA] text-white" : "text-gray-700 hover:bg-gray-50"
+                        }`}
                     >
                       {country}
                     </button>
@@ -742,11 +738,10 @@ const Swap: React.FC = () => {
                         setSelectedStatusFilter(status);
                         setIsStatusDropdownOpen(false);
                       }}
-                      className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-center transition-all ${
-                        selectedStatusFilter === status
+                      className={`w-full py-2 px-3 rounded-lg text-xs font-semibold text-center transition-all ${selectedStatusFilter === status
                           ? "bg-[#0DBCBA] text-white font-bold shadow-sm"
                           : "bg-gray-100 text-gray-700 hover:bg-[#0DBCBA] hover:text-white"
-                      }`}
+                        }`}
                     >
                       {status}
                     </button>
@@ -817,7 +812,7 @@ const Swap: React.FC = () => {
               >
                 <FiArrowLeft size={18} />
               </button>
-              
+
               {/* User Avatar */}
               <div className="w-11 h-11 rounded-full overflow-hidden border border-gray-100 shadow-sm shrink-0">
                 <img

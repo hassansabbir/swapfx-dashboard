@@ -62,6 +62,13 @@ const initialWarnings: WarningMessageItem[] = [
     fullHtml: `<h2>Profile Incomplete Pop Up</h2>
 <p>Thanks for getting in touch. Our support team has received your request and will get back to you within 72 hours. We'll notify you as soon as there's an update.</p>`,
   },
+  {
+    id: "7",
+    title: "Chat Note",
+    shortText: "Keep your conversations safe and to follow platform rules, please do not share personal contact details such as phone numbers, email addresses, social media, or home addresses. Keep all communication on the platform to protect your privacy and ensure a secure swapping experience. all the chatting going through this inbox is being monitored by the admin.",
+    fullHtml: `<h2>Chat Note</h2>
+<p>Keep your conversations safe and to follow platform rules, please do not share personal contact details such as phone numbers, email addresses, social media, or home addresses. Keep all communication on the platform to protect your privacy and ensure a secure swapping experience. all the chatting going through this inbox is being monitored by the admin.</p>`,
+  },
 ];
 
 const WarningMessage: React.FC = () => {
